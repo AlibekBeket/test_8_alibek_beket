@@ -17,6 +17,7 @@ class Product(models.Model):
         verbose_name="Имя"
     )
     category = models.CharField(
+        max_length=100,
         null=False,
         blank=False,
         verbose_name='Категория',
