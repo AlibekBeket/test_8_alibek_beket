@@ -128,3 +128,31 @@ body{
 .product_detail_str p span{
     font-size: 20px;
 }
+.form{
+    margin-top: 50px;
+}
+.form p{
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    width: 450px;
+}
+.form p input{
+    width: 200px;
+}
+.form p textarea{
+    width: 202px;
+}
+.form p select{
+    width: 204px;
+}
+.button_update_or_create input{
+    padding: 2px 20px;
+    background: SteelBlue;
+    color: white;
+    border-radius: 5px;
+}
+.button_update_or_create input:hover{
+    background: DarkSlateGray;
+    color: White;
+}
