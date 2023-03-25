@@ -28,6 +28,7 @@ class ProductListView(ListView):
             else:
                 product.avg = total_review / count_review
         context = super().get_context_data(object_list=products, **kwargs)
+        context['user'] = self.request.user
         return context
 
 
@@ -50,6 +51,7 @@ class ProductDetailView(ListView):
             context['avg'] = 0
         else:
             context['avg'] = total_review / count_review
+        context['user'] = self.request.user
         return context
 
     def get_queryset(self):

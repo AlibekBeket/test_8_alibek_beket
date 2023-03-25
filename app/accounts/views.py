@@ -68,12 +68,12 @@ class UserDetailView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
-        context['user'] = self.request.user
+        context['user'] = get_object_or_404(User, pk=self.kwargs['pk'])
         return context
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset = queryset.filter(author=self.request.user)
+        queryset = queryset.filter(author=get_object_or_404(User, pk=self.kwargs['pk']))
         return queryset
 
 

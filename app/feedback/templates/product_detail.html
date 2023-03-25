@@ -5,6 +5,7 @@
 <a href="{% url 'product_add' %}">Add Product</a>
 <a href="{% url 'product_update' product.pk %}">Update Product</a>
 <a href="{% url 'product_delete' product.pk %}">Delete Product</a>
+<a href="{% url 'user_detail' user.pk  %}">Моя Страница</a>
 {% endblock %}
 {% block content %}
 <div class="product_detail_info">
@@ -29,7 +30,7 @@
     </div>
     {% for review in reviews %}
     <div class="review">
-        <p>Author: <span>{{ review.author }}</span></p>
+        <p>Author: <a href="{% url 'user_detail' review.author.pk %}">{{ review.author }}</a></p>
         <p>Email: <span>{{ review.author.email }}</span></p>
         <p>Review text: <span>{{ review.review_text }}</span></p>
         <p>Grade: <span>{{ review.grade }}</span></p>
