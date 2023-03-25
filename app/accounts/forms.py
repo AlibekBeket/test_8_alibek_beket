@@ -15,9 +15,7 @@ class CustomUserCreationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'password', 'password_confirm', 'first_name', 'last_name', 'email')
-        required = (
-            'email',
-        )
+        required = ('email', 'first_name')
 
     def clean(self):
         cleaned_data = super().clean()
@@ -36,3 +34,11 @@ class CustomUserCreationForm(forms.ModelForm):
             user.save()
         return user
 
+class UserNameForm(forms.ModelForm):
+    first_name = forms.CharField(label='Новое имя', max_length=100)
+    email = forms.EmailField(label='Новая почта', max_length=100)
+
+    class Meta:
+        model = User
+        fields = ('email', 'first_name')
+        required = ('email', 'first_name')

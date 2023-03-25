@@ -5,7 +5,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import TemplateView, CreateView, UpdateView, ListView
 
-from accounts.forms import LoginForm, CustomUserCreationForm
+from accounts.forms import LoginForm, CustomUserCreationForm, UserNameForm
 
 from feedback.models import Review
 
@@ -64,7 +64,7 @@ class UpdatePassword(PasswordChangeView):
 class UserDetailView(ListView):
     template_name = 'user_detail.html'
     model = Review
-    context_object_name = 'review'
+    context_object_name = 'reviews'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
@@ -75,3 +75,11 @@ class UserDetailView(ListView):
         queryset = super().get_queryset()
         queryset = queryset.filter(author=self.request.user)
         return queryset
+
+
+class UserUpdateView(UpdateView):
+    form_class = UserNameForm
+    model = User
+    success_url = '/'
+    template_name = 'update_user.html'
+    context_object_name = 'user'

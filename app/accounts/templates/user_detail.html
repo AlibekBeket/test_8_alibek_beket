@@ -3,14 +3,21 @@
 {% block navbar %}
 <a href="{% url 'products_list' %}">Product List</a>
 <a href="{% url 'password_update' %}">Password Update</a>
+<a href="{% url 'user_update' user.pk %}">Update User</a>
 {% endblock %}
 {% block content %}
+<div class="user_info">
+    <p>Логин: {{ user.username }}</p>
+    <p>Имя: {{ user.first_name }}</p>
+    <p>Email: {{ user.email }}</p>
+</div>
 <div class="reviews_list">
     <h3>Review</h3>
     {% for review in reviews %}
     <div class="review">
-        <p>Author: <span>{{ review.author }}</span></p>
-        <p>Email: <span>{{ review.author.email }}</span></p>
+        <div class="review_link">
+            Product: <a href="{% url 'product_detail' review.product.pk %}">{{ review.product.name }}</a>
+        </div>
         <p>Review text: <span>{{ review.review_text }}</span></p>
         <p>Grade: <span>{{ review.grade }}</span></p>
         <div class="review_link_in_review_block">
