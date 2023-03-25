@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}Products Detail{% endblock %}
+{% block title %}User Detail{% endblock %}
 {% block navbar %}
 <a href="{% url 'products_list' %}">Product List</a>
-<a href="{% url 'password_update' %}">Password Update</a>
+{% if user.is_authenticated %}
+{% if perms.accounts.change_user %}
+<a href="{% url 'password_update' user.pk %}">Password Update</a>
 <a href="{% url 'user_update' user.pk %}">Update User</a>
+{% endif %}
+{% endif %}
 {% endblock %}
 {% block content %}
 <div class="user_info">
@@ -21,8 +25,12 @@
         <p>Review text: <span>{{ review.review_text }}</span></p>
         <p>Grade: <span>{{ review.grade }}</span></p>
         <div class="review_link_in_review_block">
+            {% if user.is_authenticated %}
+            {% if perms.feedback.change_review %}
             <a href="{% url 'review_update' review.product.pk review.pk %}">Update Review</a>
             <a class="delete" href="{% url 'review_delete' review.product.pk review.pk %}">Delete Review</a>
+            {% endif %}
+            {% endif %}
         </div>
     </div>
     {% endfor %}

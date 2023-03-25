@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -60,25 +61,40 @@ class ProductDetailView(ListView):
         return queryset
 
 
-class ProductAddView(CreateView):
+class ProductAddView(UserPassesTestMixin, LoginRequiredMixin, CreateView):
     template_name = 'product_add.html'
     model = Product
     form_class = ProductForm
+    groups = ['moderator']
+    permission_required = 'feedback.change_product'
 
     def get_success_url(self):
         return reverse('product_detail', kwargs={'pk': self.object.pk})
 
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=self.groups).exists()
 
-class ProductUpdateView(UpdateView):
+
+class ProductUpdateView(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
     template_name = 'product_update.html'
     model = Product
     form_class = ProductForm
+    groups = ['moderator']
+    permission_required = 'feedback.change_product'
 
     def get_success_url(self):
         return reverse('product_detail', kwargs={'pk': self.object.pk})
 
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=self.groups).exists()
 
-class ProductDeleteView(DeleteView):
+
+class ProductDeleteView(UserPassesTestMixin, LoginRequiredMixin, DeleteView):
     template_name = 'product_delete.html'
     model = Product
     success_url = reverse_lazy('products_list')
+    groups = ['moderator']
+    permission_required = 'feedback.change_product'
+
+    def test_func(self):
+        return self.request.user.groups.filter(name__in=self.groups).exists()

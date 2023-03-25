@@ -233,3 +233,22 @@ body{
 .review_link_in_review_block a:hover{
     color: #AED6F1;
 }
+.form_group{
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    width: 450px;
+}
+.form_group input{
+    width: 220px;
+}
+.button_login{
+    padding: 2px 25px;
+    background: SteelBlue;
+    color: white;
+    border-radius: 5px;
+}
+.button_login:hover{
+    background: DarkSlateGray;
+    color: white;
+}

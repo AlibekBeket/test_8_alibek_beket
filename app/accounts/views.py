@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import redirect, get_object_or_404
@@ -55,16 +56,22 @@ class RegisterView(CreateView):
         return self.render_to_response(context)
 
 
-class UpdatePassword(PasswordChangeView):
+class UpdatePassword(UserPassesTestMixin, LoginRequiredMixin, PasswordChangeView):
     form_class = PasswordChangeForm
     success_url = '/'
     template_name = 'update_password.html'
+    context_object_name = 'user'
+    permission_required = 'accounts.change_user'
+
+    def test_func(self):
+        return self.request.user.pk == self.kwargs['pk']
 
 
 class UserDetailView(ListView):
     template_name = 'user_detail.html'
     model = Review
     context_object_name = 'reviews'
+    permission_required = 'accounts.change_user'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
@@ -77,9 +84,13 @@ class UserDetailView(ListView):
         return queryset
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
     form_class = UserNameForm
     model = User
     success_url = '/'
     template_name = 'update_user.html'
     context_object_name = 'user'
+    permission_required = 'accounts.change_user'
+
+    def test_func(self):
+        return self.request.user.pk == self.kwargs['pk']
