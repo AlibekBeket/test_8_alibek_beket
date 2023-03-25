@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from feedback.models import Product
+from feedback.models import Product, Review
 
 
 class ProductForm(forms.ModelForm):
@@ -32,3 +32,19 @@ class ProductForm(forms.ModelForm):
         if not product_picture:
             return ''
         return product_picture
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ("review_text", "grade")
+        labels = {
+            'review_text': 'Текст отзыва',
+            'grade': 'Оценка',
+        }
+
+    def clean_review_text(self):
+        review_text = self.cleaned_data.get('review_text')
+        if len(review_text) < 3:
+            raise ValidationError('Текст отзыва не может состоять из 1 или 2 символов')
+        return review_text

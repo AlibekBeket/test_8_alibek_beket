@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% block title %}Create Product{% endblock %}
+{% block title %}Create Review{% endblock %}
 {% block navbar %}
 <a href="{% url 'products_list' %}">Product List</a>
 {% endblock %}
 {% block content %}
-<h1>Add Product</h1>
+<h1>Add Review</h1>
 <div class="form">
-    <form action="{% url 'product_add' %}" method="post">
+    <form action="{% url 'review_add' pk %}" method="post">
         {% include 'partials/form.html' with button_text="Create" %}
     </form>
 </div>

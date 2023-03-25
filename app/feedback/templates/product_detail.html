@@ -24,6 +24,9 @@
 </div>
 <div class="reviews_list">
     <h3>Review</h3>
+    <div class="review_link">
+        <a href="{% url 'review_add' product.pk %}">Create Review</a>
+    </div>
     {% for review in reviews %}
     <div class="review">
         <p>Author: <span>{{ review.author }}</span></p>

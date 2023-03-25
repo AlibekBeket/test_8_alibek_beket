@@ -200,3 +200,17 @@ body{
 .review p span{
     font-size: 20px;
 }
+.bottom_indent{
+    margin-bottom: 100px;
+}
+.review_link{
+    display: inline-block;
+}
+.review_link a{
+    color: #AFEEEE;
+    text-decoration: none;
+    margin-right: 20px;
+}
+.review_link a:hover{
+    color: #AED6F1;
+}
