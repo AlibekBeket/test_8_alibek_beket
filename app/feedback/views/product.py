@@ -1,5 +1,5 @@
-from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from feedback.models import Product
 
@@ -35,3 +35,9 @@ class ProductUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('product_detail', kwargs={'pk': self.object.pk})
+
+
+class ProductDeleteView(DeleteView):
+    template_name = 'product_delete.html'
+    model = Product
+    success_url = reverse_lazy('products_list')

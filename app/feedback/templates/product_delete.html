@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
-{% block title %}Products Detail{% endblock %}
+{% block title %}Delete Product{% endblock %}
+{% block navbar_logo %}
+<a href="{% url 'products_list' %}">E-Shop</a>
+{% endblock %}
 {% block navbar %}
 <a href="{% url 'products_list' %}">Product List</a>
 <a href="{% url 'product_add' %}">Add Product</a>
 <a href="{% url 'product_update' product.pk %}">Update Product</a>
-<a href="{% url 'product_delete' product.pk %}">Delete Product</a>
 {% endblock %}
 {% block content %}
+<h1>Delete Product</h1>
 <div class="product_detail_info">
     <div class="product_image">
         {% if product.picture %}
@@ -20,6 +23,20 @@
         <p>Product name: <span>{{ product.name }}</span></p>
         <p>Description: <span>{{ product.description }}</span></p>
         <p>Category: <span>{{ product.category }}</span></p>
+    </div>
+</div>
+<h3 class="delete_text">Are you sure you want to delete the product?</h3>
+<div class="delete_form_block">
+    <div class="form_yes">
+        <form action="{% url 'product_delete' product.pk %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Yes">
+        </form>
+    </div>
+    <div class="form_no">
+        <form action="{% url 'product_detail' product.pk %}" method="get">
+            <input type="submit" value="No">
+        </form>
     </div>
 </div>
 {% endblock %}
