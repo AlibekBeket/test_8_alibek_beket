@@ -9,7 +9,7 @@
 <div class="product_info">
     <img src="{{ product.picture }}" alt="{{ product.name }} image">
     <div class="product_str">
-        <p><a href="#">{{ product.name }}</a></p>
+        <p><a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a></p>
         <div class="product_info_small_font">
             <p>Category: {{ product.category }}</p>
         </div>

@@ -114,3 +114,17 @@ body{
     text-align: center;
     border: solid 2px gray;
 }
+.product_detail_info{
+    display: flex;
+}
+.product_detail_info img{
+    width: 300px;
+    height: 300px;
+    margin-right: 20px;
+}
+.product_detail_str p{
+    font-size: 15px;
+}
+.product_detail_str p span{
+    font-size: 20px;
+}

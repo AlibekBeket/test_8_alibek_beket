@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Products Detail{% endblock %}
+{% block navbar %}
+<a href="{% url 'products_list' %}">Product List</a>
+<a href="#">Add Product</a>
+<a href="#">Update Product</a>
+<a href="#">Delete Product</a>
+{% endblock %}
+{% block content %}
+<div class="product_detail_info">
+    <div class="product_image">
+        <img src="{{ product.picture }}" alt="{{ product.name }} image">
+    </div>
+    <div class="product_detail_str">
+        <p>Product name: <span>{{ product.name }}</span></p>
+        <p>Description: <span>{{ product.description }}</span></p>
+        <p>Category: <span>{{ product.category }}</span></p>
+    </div>
+</div>
+{% endblock %}
