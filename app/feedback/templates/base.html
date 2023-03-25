@@ -19,6 +19,21 @@
             <li>
                 {% block navbar %}{% endblock %}
             </li>
+            {% if user.is_authenticated %}
+            <li>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <input class="button_login" type="submit" value="выйти">
+                </form>
+            </li>
+            {% else %}
+            <li>
+                <a href="{% url 'login' %}">Войти</a>
+            </li>
+            <li>
+                <a href="{% url 'register' %}">Зарегистрироваться</a>
+            </li>
+            {% endif %}
         </ul>
     </div>
 </nav>

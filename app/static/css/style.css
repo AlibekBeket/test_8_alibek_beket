@@ -205,6 +205,7 @@ body{
 }
 .review_link{
     display: inline-block;
+    margin-top: 20px;
 }
 .review_link a{
     color: #AFEEEE;
