@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Delete Product{% endblock %}
+{% block navbar %}
+<a href="{% url 'products_list' %}">Product List</a>
+<a href="{% url 'product_detail' pk %}">{{ product.name }}</a>
+<a href="{% url 'review_add' pk %}">Create Review</a>
+<a href="{% url 'review_update' pk review.pk %}">Update Review</a>
+{% endblock %}
+{% block content %}
+<h1>Delete Review</h1>
+<div class="review">
+    <p>Author: <span>{{ review.author }}</span></p>
+    <p>Email: <span>{{ review.author.email }}</span></p>
+    <p>Review text: <span>{{ review.review_text }}</span></p>
+    <p>Grade: <span>{{ review.grade }}</span></p>
+</div>
+<h3 class="delete_text">Are you sure you want to delete the review?</h3>
+<div class="delete_form_block">
+    <div class="form_yes">
+        <form action="{% url 'review_delete' pk review.pk %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Yes">
+        </form>
+    </div>
+    <div class="form_no">
+        <form action="{% url 'product_detail' pk %}" method="get">
+            <input type="submit" value="No">
+        </form>
+    </div>
+</div>
+{% endblock %}

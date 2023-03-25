@@ -214,3 +214,21 @@ body{
 .review_link a:hover{
     color: #AED6F1;
 }
+.delete{
+    color: #CD6155!important;
+}
+.delete:hover{
+    color: #7B241C!important;
+}
+.review_link_in_review_block{
+    display: inline-block;
+    font-size: 18px;
+}
+.review_link_in_review_block a{
+    color: #AFEEEE;
+    text-decoration: none;
+    margin-right: 20px;
+}
+.review_link_in_review_block a:hover{
+    color: #AED6F1;
+}

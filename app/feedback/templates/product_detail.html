@@ -33,7 +33,10 @@
         <p>Email: <span>{{ review.author.email }}</span></p>
         <p>Review text: <span>{{ review.review_text }}</span></p>
         <p>Grade: <span>{{ review.grade }}</span></p>
-        <a href="{% url 'review_update' product.pk review.pk %}">Update Review</a>
+        <div class="review_link_in_review_block">
+            <a href="{% url 'review_update' product.pk review.pk %}">Update Review</a>
+            <a class="delete" href="{% url 'review_delete' product.pk review.pk %}">Delete Review</a>
+        </div>
     </div>
     {% endfor %}
 </div>
