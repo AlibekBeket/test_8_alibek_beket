@@ -14,6 +14,22 @@ class ProductListView(ListView):
     paginate_by = 5
     paginate_orphans = 1
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        products = Product.objects.all()
+        for product in products:
+            reviews = Review.objects.filter(product=product)
+            count_review = 0
+            total_review = 0
+            for review in reviews:
+                count_review += 1
+                total_review += review.grade
+            if count_review == 0:
+                product.avg = 0
+            else:
+                product.avg = total_review / count_review
+        context = super().get_context_data(object_list=products, **kwargs)
+        return context
+
 
 class ProductDetailView(ListView):
     template_name = 'product_detail.html'
@@ -25,6 +41,15 @@ class ProductDetailView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
         context['product'] = get_object_or_404(Product, pk=self.kwargs['pk'])
+        count_review = 0
+        total_review = 0
+        for review in Review.objects.filter(product=get_object_or_404(Product, pk=self.kwargs['pk'])):
+            count_review += 1
+            total_review += review.grade
+        if count_review == 0:
+            context['avg'] = 0
+        else:
+            context['avg'] = total_review / count_review
         return context
 
     def get_queryset(self):

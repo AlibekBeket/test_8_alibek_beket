@@ -17,6 +17,7 @@
         <p><a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a></p>
         <div class="product_info_small_font">
             <p>Category: {{ product.category }}</p>
+            <p>Average grade: {{ product.avg }}</p>
         </div>
     </div>
 </div>
