@@ -185,3 +185,18 @@ body{
     background: #0B5345;
     color: white;
 }
+.reviews_list{
+    margin-top: 20px;
+}
+.review{
+    background-color: #424949;
+    border-radius: 8px;
+    margin-top: 15px;
+    padding: 5px 10px;
+}
+.review p{
+    font-size: 15px;
+}
+.review p span{
+    font-size: 20px;
+}
