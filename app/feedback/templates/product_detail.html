@@ -33,6 +33,7 @@
         <p>Email: <span>{{ review.author.email }}</span></p>
         <p>Review text: <span>{{ review.review_text }}</span></p>
         <p>Grade: <span>{{ review.grade }}</span></p>
+        <a href="{% url 'review_update' product.pk review.pk %}">Update Review</a>
     </div>
     {% endfor %}
 </div>

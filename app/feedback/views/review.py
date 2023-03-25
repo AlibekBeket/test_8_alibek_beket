@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
 from feedback.models import Product, Review
 
@@ -28,3 +28,17 @@ class ReviewAddView(CreateView):
             return redirect(reverse('product_detail', kwargs={'pk': kwargs['pk']}))
         return render(request, 'review_add.html',
                       context={'form': form, 'pk': kwargs['pk']})
+
+
+class ReviewUpdateView(UpdateView):
+    template_name = 'review_update.html'
+    model = Review
+    form_class = ReviewForm
+
+    def get_success_url(self):
+        return reverse('product_detail', kwargs={'pk': self.kwargs['project_pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.kwargs['project_pk']
+        return context
