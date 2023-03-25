@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Products Detail{% endblock %}
+{% block navbar %}
+<a href="{% url 'products_list' %}">Product List</a>
+<a href="{% url 'password_update' %}">Password Update</a>
+{% endblock %}
+{% block content %}
+<div class="reviews_list">
+    <h3>Review</h3>
+    {% for review in reviews %}
+    <div class="review">
+        <p>Author: <span>{{ review.author }}</span></p>
+        <p>Email: <span>{{ review.author.email }}</span></p>
+        <p>Review text: <span>{{ review.review_text }}</span></p>
+        <p>Grade: <span>{{ review.grade }}</span></p>
+        <div class="review_link_in_review_block">
+            <a href="{% url 'review_update' review.product.pk review.pk %}">Update Review</a>
+            <a class="delete" href="{% url 'review_delete' review.product.pk review.pk %}">Delete Review</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

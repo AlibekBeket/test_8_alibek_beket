@@ -1,8 +1,13 @@
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import redirect
-from django.views.generic import TemplateView, CreateView, UpdateView
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.models import User
+from django.contrib.auth.views import PasswordChangeView
+from django.shortcuts import redirect, get_object_or_404
+from django.views.generic import TemplateView, CreateView, UpdateView, ListView
 
 from accounts.forms import LoginForm, CustomUserCreationForm
+
+from feedback.models import Review
 
 
 class LoginView(TemplateView):
@@ -49,15 +54,24 @@ class RegisterView(CreateView):
         context = {'form': form}
         return self.render_to_response(context)
 
-class CustomUserPasswordUpdateForm(UpdateView):
-    template_name = 'update_password.html'
-    form_class = CustomUserCreationForm
-    success_url = '/'
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect(self.success_url)
-        return self.render_to_response()
+class UpdatePassword(PasswordChangeView):
+    form_class = PasswordChangeForm
+    success_url = '/'
+    template_name = 'update_password.html'
+
+
+class UserDetailView(ListView):
+    template_name = 'user_detail.html'
+    model = Review
+    context_object_name = 'review'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['user'] = self.request.user
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(author=self.request.user)
+        return queryset
