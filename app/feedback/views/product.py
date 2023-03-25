@@ -1,5 +1,5 @@
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from feedback.models import Product
 
@@ -21,6 +21,15 @@ class ProductDetailView(DetailView):
 
 class ProductAddView(CreateView):
     template_name = 'product_add.html'
+    model = Product
+    form_class = ProductForm
+
+    def get_success_url(self):
+        return reverse('product_detail', kwargs={'pk': self.object.pk})
+
+
+class ProductUpdateView(UpdateView):
+    template_name = 'product_update.html'
     model = Product
     form_class = ProductForm
 
